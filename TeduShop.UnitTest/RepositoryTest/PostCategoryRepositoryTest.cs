@@ -17,7 +17,7 @@ namespace TeduShop.UnitTest.RepositoryTest
         public void Initialize()
         {
             _dbFactory = new DbFactory();
-            _postCategoryRepository = new PostCategoryReository(_dbFactory);
+            _postCategoryRepository = new PostCategoryRepository(_dbFactory);
             _unitOfWork = new UnitOfWork(_dbFactory);
         }
 
