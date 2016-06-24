@@ -3,12 +3,11 @@ using System.Collections.Generic;
 
 namespace TeduShop.Web.Models
 {
-    public class PostCategoryViewModel
+    public class ProductCategoryViewModel
     {
         public int ID { set; get; }
 
         public string Name { set; get; }
-
 
         public string Alias { set; get; }
 
@@ -36,6 +35,6 @@ namespace TeduShop.Web.Models
 
         public bool Status { set; get; }
 
-        public virtual IEnumerable<PostViewModel> Posts { set; get; }
+        public virtual IEnumerable<ProductViewModel> Products { set; get; }
     }
 }

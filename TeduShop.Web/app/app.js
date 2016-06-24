@@ -1,17 +1,23 @@
 ﻿/// <reference path="/Assets/admin/libs/angular/angular.js" />
 
 (function() {
-    angular.module('tedushop', ['tedushop.common', 'tedushop.products']).config(config);
+    angular.module("tedushop",
+        [
+            "tedushop.common",
+            "tedushop.products",
+            "tedushop.product_categories"
+        ])
+        .config(config);
 
-    config.$inject = ['$stateProvider', '$urlRouterProvider'];
+    config.$inject = ["$stateProvider", "$urlRouterProvider"];
 
     function config($stateProvider, $urlRouterProvider) {
-        $stateProvider.state('home',
+        $stateProvider.state("home",
         {
-            url: '/admin',
-            templateUrl: '/app/components/home/homeView.html',
-            controller: 'homeController'
+            url: "/admin",
+            templateUrl: "/app/components/home/homeView.html",
+            controller: "homeController"
         });
-        $urlRouterProvider.otherwise('/admin');
-    } 
+        $urlRouterProvider.otherwise("/admin");
+    }
 })();
