@@ -1,10 +1,10 @@
 ﻿(function(app) {
 
-    app.controller("productCategoryListController", productCategoryListController);
+    app.controller('productCategoryListController', productCategoryListController);
 
-    productCategoryListController.$inject = ["$scope", "apiService"];
+    productCategoryListController.$inject = ['$scope', 'apiService', 'notificationService'];
 
-    function productCategoryListController($scope, apiService) {
+    function productCategoryListController($scope, apiService, notificationService) {
         $scope.productCategories = [];
         $scope.page = 0;
         $scope.pagesCount = 0;
@@ -25,16 +25,19 @@
                     pageSize: 2
                 }
             }
-            apiService.get("/api/productcategory/getall",
+            apiService.get('/api/productcategory/getall',
                 config,
-                function(result) {
+                function (result) {
+                    if (result.data.TotalCount === 0) {
+                        notificationService.displayWarning('Không tìm thấy bản ghi nào.');
+                    }
                     $scope.productCategories = result.data.Items;
                     $scope.page = result.data.Page;
                     $scope.pagesCount = result.data.TotalPages;
                     $scope.totalCount = result.data.TotalCount;
                 },
                 function() {
-                    console.log("Loading a list of product category failed");
+                    console.log('Loading a list of product category failed');
                 });
         }
 
@@ -42,4 +45,4 @@
 
     };
 
-})(angular.module("tedushop.product_categories"));
+})(angular.module('tedushop.product_categories'));

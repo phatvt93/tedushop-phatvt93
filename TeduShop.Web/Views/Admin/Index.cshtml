@@ -13,6 +13,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
+    <link href="~/Assets/admin/libs/toastr/toastr.css" rel="stylesheet" />
     <link rel="stylesheet" href="/Assets/admin/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
     folder instead of downloading all of them to reduce the load. -->
@@ -637,13 +638,20 @@ immediately after the control sidebar -->
 <!-- Begin embed angularJS -->
 <script src="~/Assets/admin/libs/angular/angular.js"></script>
 <script src="~/Assets/admin/libs/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="~/Assets/admin/libs/toastr/toastr.js"></script>
+
+
 <script src="~/app/shared/modules/tedushop.common.js"></script>
 
 <!--Begin filter-->
 <script src="~/app/shared/filters/statusFilter.js"></script>
 <!--End filter-->
 
+<!--Begin service-->
+<script src="~/app/shared/services/notificationService.js"></script>
 <script src="~/app/shared/services/apiService.js"></script>
+<!--End service-->
+
 
 <!--Begin directive-->
 <script src="~/app/shared/directives/pagerDirective.js"></script>
@@ -658,6 +666,7 @@ immediately after the control sidebar -->
 
 <!--Begin controller-->
 <script src="~/app/components/product_categories/productCategoryListController.js"></script>
+<script src="~/app/components/product_categories/productCategoryAddController.js"></script>
 <script src="~/app/components/home/homeController.js"></script>
 <script src="~/app/components/products/productAddController.js"></script>
 <script src="~/app/components/products/productListController.js"></script>
