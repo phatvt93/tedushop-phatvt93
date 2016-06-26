@@ -16,7 +16,7 @@
             apiService.post('api/productcategory/create',
                 $scope.productCategory,
                 function(result) {
-                    notificationService.displaySuccess(result.data.name + 'đã được thêm thành công.');
+                    notificationService.displaySuccess(result.data.Name + ' đã được thêm thành công.');
                     $state.go('product_categories');
                 }, function (error) {
                     console.log(error);
