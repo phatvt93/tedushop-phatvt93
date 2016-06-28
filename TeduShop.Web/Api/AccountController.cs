@@ -1,10 +1,10 @@
-﻿using System.Net;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.Identity.Owin;
+using TeduShop.Web.App_Start;
 
 namespace TeduShop.Web.Api
 {
@@ -26,8 +26,14 @@ namespace TeduShop.Web.Api
 
         public ApplicationSignInManager SignInManager
         {
-            get { return _signInManager ?? HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>(); }
-            private set { _signInManager = value; }
+            get
+            {
+                return _signInManager ?? HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
         }
 
         public ApplicationUserManager UserManager
@@ -36,11 +42,12 @@ namespace TeduShop.Web.Api
             {
                 return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
-            private set { _userManager = value; }
+            private set
+            {
+                _userManager = value;
+            }
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
@@ -50,11 +57,12 @@ namespace TeduShop.Web.Api
             {
                 return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(userName, password, rememberMe, shouldLockout: false);
             return request.CreateResponse(HttpStatusCode.OK, result);
         }
+
+
     }
 }

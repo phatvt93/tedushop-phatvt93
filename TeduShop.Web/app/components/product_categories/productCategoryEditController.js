@@ -1,10 +1,9 @@
 ﻿(function (app) {
-
     app.controller('productCategoryEditController', productCategoryEditController);
 
-    productCategoryEditController.$inject = ['$scope', 'apiService', 'notificationService', '$state', '$stateParams', 'commonService'];
+    productCategoryEditController.$inject = ['apiService', '$scope', 'notificationService', '$state', '$stateParams','commonService'];
 
-    function productCategoryEditController($scope, apiService, notificationService, $state, $stateParams, commonService) {
+    function productCategoryEditController(apiService, $scope, notificationService, $state, $stateParams,commonService) {
         $scope.productCategory = {
             CreatedDate: new Date(),
             Status: true
@@ -17,37 +16,29 @@
             $scope.productCategory.Alias = commonService.getSeoTitle($scope.productCategory.Name);
         }
 
+        function loadProductCategoryDetail() {
+            apiService.get('api/productcategory/getbyid/' + $stateParams.id, null, function (result) {
+                $scope.productCategory = result.data;
+            }, function (error) {
+                notificationService.displayError(error.data);
+            });
+        }
+
         function UpdateProductCategory() {
-            apiService.put('api/productcategory/update',
-                $scope.productCategory,
+            apiService.put('api/productcategory/update', $scope.productCategory,
                 function (result) {
-                    notificationService.displaySuccess(result.data.Name + ' đã được cập nhật thành công.');
+                    notificationService.displaySuccess(result.data.Name + ' đã được cập nhật.');
                     $state.go('product_categories');
                 }, function (error) {
-                    console.log(error);
                     notificationService.displayError('Cập nhật không thành công.');
                 });
         }
-
         function loadParentCategory() {
-            apiService.get('api/productcategory/getallparents',
-                null,
-                function (result) {
-                    $scope.parentCategories = result.data;
-                },
-                function () {
-                    console.log('Cannot get list parent');
-                });
-        }
-
-        function loadProductCategoryDetail() {
-            apiService.get('api/productcategory/getbyid/' + $stateParams.id,
-                null,
-                function(result) {
-                    $scope.productCategory = result.data;
-                }, function(error) {
-                    notificationService.displayError(error);
-                });
+            apiService.get('api/productcategory/getallparents', null, function (result) {
+                $scope.parentCategories = result.data;
+            }, function () {
+                console.log('Cannot get list parent');
+            });
         }
 
         loadParentCategory();

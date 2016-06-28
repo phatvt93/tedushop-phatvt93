@@ -1,9 +1,10 @@
-﻿(function(app) {
-
-    app.filter("statusFilter",
-        function() {
-            return function(input) {
-                return input ? "Kích hoạt" : "Khóa";
-            };
-        });
-})(angular.module("tedushop.common"));
+﻿(function (app) {
+    app.filter('statusFilter', function () {
+        return function (input) {
+            if (input == true)
+                return 'Kích hoạt';
+            else
+                return 'Khóa';
+        }
+    });
+})(angular.module('tedushop.common'));

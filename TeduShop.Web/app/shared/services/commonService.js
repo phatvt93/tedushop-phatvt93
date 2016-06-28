@@ -1,12 +1,13 @@
-﻿(function(app) {
+﻿/// <reference path="/Assets/admin/libs/angular/angular.js" />
 
-    app.service('commonService', commonService);
+(function (app) {
+    app.factory('commonService', commonService);
+
 
     function commonService() {
         return {
             getSeoTitle: getSeoTitle
         }
-
         function getSeoTitle(input) {
             if (input == undefined || input == '')
                 return '';
@@ -37,7 +38,6 @@
 
             return slug;
         }
+
     }
-
-
 })(angular.module('tedushop.common'));
