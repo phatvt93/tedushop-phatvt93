@@ -16,6 +16,8 @@ namespace TeduShop.Data.Migrations
         protected override void Seed(TeduShopDbContext context)
         {
             CreateProductCategorySample(context);
+            CreateSlide(context);
+            CreateProduct(context);
             //  This method will be called after migrating to the latest version.
 
             //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new TeduShopDbContext()));
@@ -76,6 +78,87 @@ namespace TeduShop.Data.Migrations
                 };
 
                 context.ProductCategories.AddRange(listProductCategories);
+                context.SaveChanges();
+            }
+        }
+
+        private void CreateSlide(TeduShopDbContext context)
+        {
+            if (context.Slides.Count() == 0)
+            {
+                var listSlide = new List<Slide>
+                {
+                    new Slide
+                    {
+                        Name = "Slide 1",
+                        DisplayOrder = 1,
+                        Status = true,
+                        Url = "#",
+                        Image = "/Assets/client/images/bag.jpg",
+                        Content = @"	<h2>FLAT 50% 0FF</h2>
+                                <label>FOR ALL PURCHASE <b>VALUE</b></label>
+                                <p>Lorem ipsum dolor sit amet, consectetur 
+                            adipisicing elit, sed do eiusmod tempor incididunt ut labore et </p>
+                        <span class='on-get'>GET NOW</span>"
+                    },
+                    new Slide
+                    {
+                        Name = "Slide 2",
+                        DisplayOrder = 2,
+                        Status = true,
+                        Url = "#",
+                        Image = "/Assets/client/images/bag1.jpg",
+                        Content = @"<h2>FLAT 50% 0FF</h2>
+                                <label>FOR ALL PURCHASE <b>VALUE</b></label>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et </p>
+                                <span class=\'on-get\'>GET NOW</span>"
+                    }
+                };
+
+                context.Slides.AddRange(listSlide);
+                context.SaveChanges();
+            }
+        }
+
+        private void CreateProduct(TeduShopDbContext context)
+        {
+            if (context.Products.Count() == 0)
+            {
+                List<Product> listProduct = new List<Product>()
+                {
+                    new Product() { Name = "Sản phẩm 1", Alias = "san-pham-1",
+                        Image = "/Assets/client/images/ch.jpg",
+                        Price = 2000000, PromotionPrice = 1000000,
+                        CreatedDate = DateTime.Now, HomeFlag = true,
+                        HotFlag = true, CategoryID = 1, Status = true},
+                    new Product() { Name = "Sản phẩm 2", Alias = "san-pham-2",
+                        Image = "/Assets/client/images/ba.jpg",
+                        Price = 22000000, PromotionPrice = 10000000,
+                        CreatedDate = DateTime.Now, HomeFlag = true,
+                        HotFlag = true, CategoryID = 2, Status = true},
+                    new Product() { Name = "Sản phẩm 3", Alias = "san-pham-3",
+                        Image = "/Assets/client/images/bo.jpg",
+                        Price = 2600000, PromotionPrice = 1600000,
+                        CreatedDate = DateTime.Now, HomeFlag = true,
+                        HotFlag = true, CategoryID = 1, Status = true},
+                    new Product() { Name = "Sản phẩm 4", Alias = "san-pham-4",
+                        Image = "/Assets/client/images/bott.jpg",
+                        Price = 9999999, PromotionPrice = 8888888,
+                        CreatedDate = DateTime.Now, HomeFlag = true,
+                        HotFlag = true, CategoryID = 1, Status = true},
+                    new Product() { Name = "Sản phẩm 5", Alias = "san-pham-5",
+                        Image = "/Assets/client/images/baa.jpg",
+                        Price = 9999999, PromotionPrice = 8888888,
+                        CreatedDate = DateTime.Now, HomeFlag = true,
+                        HotFlag = true, CategoryID = 1, Status = true},
+                    new Product() { Name = "Sản phẩm 6", Alias = "san-pham-6",
+                        Image = "/Assets/client/images/bottle.jpg",
+                        Price = 9999999, PromotionPrice = 8888888,
+                        CreatedDate = DateTime.Now, HomeFlag = true,
+                        HotFlag = true, CategoryID = 1, Status = true}
+                };
+
+                context.Products.AddRange(listProduct);
                 context.SaveChanges();
             }
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TeduShop.Common;
 using TeduShop.Data.Infrastructure;
 using TeduShop.Data.Repositories;
@@ -19,6 +20,10 @@ namespace TeduShop.Service
         IEnumerable<Product> GetAll(string keyword);
 
         Product GetById(int id);
+
+        IEnumerable<Product> GetLastest(int top);
+
+        IEnumerable<Product> GetHotProduct(int top);
 
         void Save();
     }
@@ -131,6 +136,16 @@ namespace TeduShop.Service
         public Product GetById(int id)
         {
             return _productRepository.GetSingleById(id);
+        }
+
+        public IEnumerable<Product> GetLastest(int top)
+        {
+            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
+        }
+
+        public IEnumerable<Product> GetHotProduct(int top)
+        {
+            return _productRepository.GetMulti(x => x.Status && x.HotFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
         }
 
         public void Save()

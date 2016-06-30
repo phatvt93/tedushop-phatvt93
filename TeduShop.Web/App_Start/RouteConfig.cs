@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace TeduShop.Web
@@ -12,12 +8,36 @@ namespace TeduShop.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                "Login",
+                "dang-nhap.html",
+                new {controller = "Account", action = "Login", id = UrlParameter.Optional},
+                new[] {"TeduShop.Web.Controllers"}
+                );
+            routes.MapRoute(
+                "About",
+                "gioi-thieu.html",
+                new {controller = "About", action = "Index", id = UrlParameter.Optional},
+                new[] {"TeduShop.Web.Controllers"}
+                );
+            routes.MapRoute(
+                "Product Category",
+                "{alias}.pc-{id}.html",
+                new {controller = "Product", action = "Category", id = UrlParameter.Optional},
+                new[] {"TeduShop.Web.Controllers"}
+                );
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                "Product",
+                "{alias}.p-{productId}.html",
+                new {controller = "Product", action = "Detail", productId = UrlParameter.Optional},
+                new[] {"TeduShop.Web.Controllers"}
+                );
+            routes.MapRoute(
+                "Default",
+                "{controller}/{action}/{id}",
+                new {controller = "Home", action = "Index", id = UrlParameter.Optional}
+                );
         }
     }
 }
