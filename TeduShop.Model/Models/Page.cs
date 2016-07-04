@@ -21,5 +21,6 @@ namespace TeduShop.Model.Models
         public string Alias { set; get; }
 
         public string Content { set; get; }
+
     }
 }

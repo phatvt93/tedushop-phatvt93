@@ -32,6 +32,8 @@ namespace TeduShop.Data
 
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
         public DbSet<Error> Errors { set; get; }
+        public DbSet<ContactDetail> ContactDetails { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
 
         public static TeduShopDbContext Create()
         {

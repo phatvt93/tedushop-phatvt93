@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using TeduShop.Model.Models;
 
@@ -18,6 +20,8 @@ namespace TeduShop.Data.Migrations
             CreateProductCategorySample(context);
             CreateSlide(context);
             CreateProduct(context);
+            CreatePage(context);
+            CreateContactDetail(context);
             //  This method will be called after migrating to the latest version.
 
             //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new TeduShopDbContext()));
@@ -49,7 +53,7 @@ namespace TeduShop.Data.Migrations
 
         private void CreateProductCategorySample(TeduShopDbContext context)
         {
-            if (context.ProductCategories.Count() == 0)
+            if (!context.ProductCategories.Any())
             {
                 var listProductCategories = new List<ProductCategory>
                 {
@@ -84,7 +88,7 @@ namespace TeduShop.Data.Migrations
 
         private void CreateSlide(TeduShopDbContext context)
         {
-            if (context.Slides.Count() == 0)
+            if (!context.Slides.Any())
             {
                 var listSlide = new List<Slide>
                 {
@@ -122,7 +126,7 @@ namespace TeduShop.Data.Migrations
 
         private void CreateProduct(TeduShopDbContext context)
         {
-            if (context.Products.Count() == 0)
+            if (!context.Products.Any())
             {
                 List<Product> listProduct = new List<Product>()
                 {
@@ -160,6 +164,59 @@ namespace TeduShop.Data.Migrations
 
                 context.Products.AddRange(listProduct);
                 context.SaveChanges();
+            }
+        }
+
+        private void CreatePage(TeduShopDbContext context)
+        {
+            if (!context.Pages.Any())
+            {
+                var page = new Page()
+                {
+                    Name = "Giới thiệu",
+                    Alias = "gioi-thieu",
+                    Content = @"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium ",
+                    Status = true
+                };
+
+                context.Pages.Add(page);
+                context.SaveChanges();
+            }
+        }
+
+        private void CreateContactDetail(TeduShopDbContext context)
+        {
+            if (!context.ContactDetails.Any())
+            {
+                try
+                {
+                    var contactDetail = new TeduShop.Model.Models.ContactDetail()
+                    {
+                        Name = "Shop thời trang TEDU",
+                        Address = "Ngõ 77 Xuân La",
+                        Email = "tedu@gmail.com",
+                        Lat = 21.0633645,
+                        Lng = 105.8053274,
+                        Phone = "095423233",
+                        Website = "http://tedu.com.vn",
+                        Other = "",
+                        Status = true
+
+                    };
+                    context.ContactDetails.Add(contactDetail);
+                    context.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var eve in ex.EntityValidationErrors)
+                    {
+                        Trace.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation error.");
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Trace.WriteLine($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                        }
+                    }
+                }
             }
         }
     }

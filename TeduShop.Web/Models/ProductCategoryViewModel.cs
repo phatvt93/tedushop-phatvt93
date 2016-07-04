@@ -36,7 +36,6 @@ namespace TeduShop.Web.Models
 
         public string MetaDescription { set; get; }
 
-        [Required(ErrorMessage = "Vui lòng nhập thứ tự")]
         public bool Status { set; get; }
 
         public virtual IEnumerable<ProductViewModel> Products { set; get; }
